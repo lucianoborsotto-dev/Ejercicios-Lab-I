@@ -11,8 +11,17 @@ public class colegio {
         Alumno alumno1 = new Alumno(1001, "Lopez", "Martin");
         Alumno alumno2 = new Alumno(1002, "Martinez", "Brenda");
         
+        alumno1.agregarMateria(matematicas);
+        alumno1.agregarMateria(web2);
+        alumno1.agregarMateria(laboratorio1);
         
+         alumno2.agregarMateria(matematicas);
+        alumno2.agregarMateria(web2);
+        alumno2.agregarMateria(laboratorio1);
+        alumno2.agregarMateria(laboratorio1);
         
+        alumno1.cantidadMaterias();
+        alumno2.cantidadMaterias();
     }
     
 }

@@ -1,9 +1,8 @@
 
 import java.util.HashSet;
 
-
 public class Alumno {
-    
+
     private int legajo;
     private String apellido;
     private String nombre;
@@ -47,10 +46,17 @@ public class Alumno {
     public void setMaterias(HashSet<Materia> materias) {
         this.materias = materias;
     }
-    
-    public void agregarMateria(Materia materia){
-        
+
+    public void agregarMateria(Materia materia) {
+
+        if (materias.contains(materia)) {
+            System.out.println(nombre + " " + apellido + " ya esta inscripto en " + materia.getNombre());
+        } else {
+            materias.add(materia);
+            System.out.println(nombre + " " + apellido + " fue inscripto a: " + materia.getNombre());
+        }
     }
-    
-    
+public void cantidadMaterias(){
+    System.out.println(nombre + " esta inscripto/a en "+ materias.size()+ " materias");
+}
 }
