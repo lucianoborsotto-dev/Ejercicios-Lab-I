@@ -2,15 +2,12 @@
 import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
 
-
 public class Conversor extends javax.swing.JFrame {
 
-   
     public Conversor() {
         initComponents();
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -154,61 +151,30 @@ public class Conversor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Txt_IngresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Txt_IngresoActionPerformed
-        
-        //String Nro = Txt_Ingreso.getText().trim();
-        
     }//GEN-LAST:event_Txt_IngresoActionPerformed
 
     private void BtnConvertirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnConvertirActionPerformed
         try {
-             String Nro = Txt_Ingreso.getText().trim();
-        double nro_double = Double.valueOf(Nro);
-        double conver;
-        
-       
-        
-       
-        if(Rbtn_fahrenheith.isSelected()){
-            conver = nro_double * 9/5 + 32;
-            JOptionPane.showMessageDialog(this, " Se convirtio a: Fahrenheith " + conver);                                    
-        }
-        else if(RbtnKelvin.isSelected()){
-            conver = nro_double + 273.15;
-                        JOptionPane.showMessageDialog(this, " Se convirtio a: Kelvin " + conver);
-        }
-        else if(RbtnRadian.isSelected()){
-            conver = (nro_double + 273.15) * 9/5 ;
-                         JOptionPane.showMessageDialog(this, " Se convirtio a: Radian " + conver);
-        }
+            String Nro = Txt_Ingreso.getText().trim();
+            double nro_double = Double.valueOf(Nro);
+            double conver;
+
+            if (Rbtn_fahrenheith.isSelected()) {
+                conver = nro_double * 9 / 5 + 32;
+                JOptionPane.showMessageDialog(this, "La temperatura en grados Fahrenheith son " + conver);
+            } else if (RbtnKelvin.isSelected()) {
+                conver = nro_double + 273.15;
+                JOptionPane.showMessageDialog(this, "La temperatura en grados Kelvin " + conver);
+            } else if (RbtnRadian.isSelected()) {
+                conver = (nro_double + 273.15) * 9 / 5;
+                JOptionPane.showMessageDialog(this, " Se convirtio a: Radian " + conver);
+            }
         } catch (HeadlessException | NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Ingresa NUMEROS (Ej: 1 2 3)");
         }
-//      String seleccion = buttonGroup1.getSelection().getActionCommand();
-//      double conver;   
-//            switch (seleccion){
-//                    case "A Fahrenheith":
-//                        conver = nro_double * 9/5 + 32;
-//                         System.out.println(" Se convirtio a: Fahrenheith " + conver);
-//                        break;
-//                    case "A Kelvin":
-//                        conver = nro_double + 273.15;
-//                         System.out.println(" Se convirtio a: Kelvin " + conver);
-//                        break;
-//                    case "A Radianes":
-//                        conver = (nro_double + 273.15) * 9/5 ;
-//                         System.out.println(" Se convirtio a: Radianes " + conver);
-//                        break;
-//                    default: 
-//                        break;
-//            }
-        
-        
     }//GEN-LAST:event_BtnConvertirActionPerformed
 
-    
     public static void main(String args[]) {
-       
-        
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -226,7 +192,6 @@ public class Conversor extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Conversor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Conversor().setVisible(true);
