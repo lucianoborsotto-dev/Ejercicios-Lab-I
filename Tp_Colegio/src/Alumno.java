@@ -1,5 +1,6 @@
 
 import java.util.HashSet;
+import javax.swing.JTextField;
 
 public class Alumno {
 
@@ -13,6 +14,10 @@ public class Alumno {
         this.apellido = apellido;
         this.nombre = nombre;
         this.materias = new HashSet<>();
+    }
+
+    Alumno(int legajoInt, JTextField jTFApellido, JTextField jTFNombre) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public int getLegajo() {
