@@ -1,15 +1,7 @@
 
 import java.util.HashSet;
+import javax.swing.JOptionPane;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author Franco Orozco
- */
 public class JFrame extends javax.swing.JFrame {
 
     private static HashSet<Alumno> alumnos = new HashSet<>();
@@ -35,9 +27,9 @@ public class JFrame extends javax.swing.JFrame {
         jInternalFrame3 = new javax.swing.JInternalFrame();
         jPanel3 = new javax.swing.JPanel();
         jButtonSalir2 = new javax.swing.JButton();
-        jButtonGuardarMateria1 = new javax.swing.JButton();
+        jBGuardarAlumno = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
-        jTFAnioMateria1 = new javax.swing.JTextField();
+        jTFNombre = new javax.swing.JTextField();
         jTFLegajo = new javax.swing.JTextField();
         jTFApellido = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
@@ -75,7 +67,6 @@ public class JFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        jInternalFrame3.setClosable(true);
         jInternalFrame3.setVisible(true);
 
         jButtonSalir2.setText("Salir");
@@ -85,19 +76,19 @@ public class JFrame extends javax.swing.JFrame {
             }
         });
 
-        jButtonGuardarMateria1.setText("Guardar");
-        jButtonGuardarMateria1.addActionListener(new java.awt.event.ActionListener() {
+        jBGuardarAlumno.setText("Guardar");
+        jBGuardarAlumno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonGuardarMateria1ActionPerformed(evt);
+                jBGuardarAlumnoActionPerformed(evt);
             }
         });
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel9.setText("APELLIDO:");
 
-        jTFAnioMateria1.addActionListener(new java.awt.event.ActionListener() {
+        jTFNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTFAnioMateria1ActionPerformed(evt);
+                jTFNombreActionPerformed(evt);
             }
         });
 
@@ -126,58 +117,60 @@ public class JFrame extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonGuardarMateria1)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBGuardarAlumno))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(jLabel11)))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTFNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTFApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                .addGap(124, 124, 124)
+                                .addComponent(jLabel12))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addComponent(jLabel10)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTFLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 15, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addComponent(jButtonSalir2)
                 .addContainerGap())
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(124, 124, 124)
-                        .addComponent(jLabel12))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jLabel10)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTFLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTFAnioMateria1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTFApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(0, 95, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel12))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(90, 90, 90)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(jTFLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jLabel10))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTFLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
                     .addComponent(jTFApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+                .addGap(8, 8, 8)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jTFAnioMateria1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(48, 48, 48)
+                    .addComponent(jTFNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonGuardarMateria1)
+                    .addComponent(jBGuardarAlumno)
                     .addComponent(jButtonSalir2))
                 .addContainerGap())
         );
@@ -199,7 +192,6 @@ public class JFrame extends javax.swing.JFrame {
                 .addGap(22, 22, 22))
         );
 
-        jInternalFrame2.setClosable(true);
         jInternalFrame2.setVisible(true);
 
         jButtonSalir1.setText("Salir");
@@ -321,7 +313,6 @@ public class JFrame extends javax.swing.JFrame {
                 .addGap(22, 22, 22))
         );
 
-        jInternalFrame1.setClosable(true);
         jInternalFrame1.setVisible(true);
 
         jButtonSalir.setText("Salir");
@@ -363,15 +354,14 @@ public class JFrame extends javax.swing.JFrame {
                         .addGap(124, 124, 124)
                         .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jLabel4)
-                        .addGap(29, 29, 29)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
-                        .addComponent(jLabel2)
-                        .addGap(37, 37, 37)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 149, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -386,11 +376,11 @@ public class JFrame extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(129, 129, 129)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 265, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonInscribirAlumno)
                     .addComponent(jButtonSalir))
@@ -511,12 +501,10 @@ public class JFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mi_agregarAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_agregarAlumnoActionPerformed
-
         jInternalFrame3.setVisible(true);
     }//GEN-LAST:event_mi_agregarAlumnoActionPerformed
 
     private void mi_agregarMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_agregarMateriaActionPerformed
-
         jInternalFrame2.setVisible(true);
     }//GEN-LAST:event_mi_agregarMateriaActionPerformed
 
@@ -524,13 +512,24 @@ public class JFrame extends javax.swing.JFrame {
         jInternalFrame3.setVisible(false);
     }//GEN-LAST:event_jButtonSalir2ActionPerformed
 
-    private void jButtonGuardarMateria1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarMateria1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonGuardarMateria1ActionPerformed
+    private void jBGuardarAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarAlumnoActionPerformed
+        String codLegajo = jTFLegajo.getText().trim();
+        String nombreAlumno = jTFNombre.getText().trim();
+        String apellidoAlumno = jTFApellido.getText().trim();
 
-    private void jTFAnioMateria1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFAnioMateria1ActionPerformed
+        int legajoInt = Integer.valueOf(codLegajo);
+
+        Alumno alumno = new Alumno(legajoInt, apellidoAlumno, nombreAlumno);
+        alumnos.add(alumno);
+        JOptionPane.showMessageDialog(this, "Alumno agregado");
+        jTFLegajo.setText("");
+        jTFNombre.setText("");
+        jTFApellido.setText("");
+        actualizarAlumnos();    }//GEN-LAST:event_jBGuardarAlumnoActionPerformed
+
+    private void jTFNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFNombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTFAnioMateria1ActionPerformed
+    }//GEN-LAST:event_jTFNombreActionPerformed
 
     private void jTFLegajoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFLegajoActionPerformed
         // TODO add your handling code here:
@@ -541,15 +540,7 @@ public class JFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jTFApellidoActionPerformed
 
     private void jButtonInscribirAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInscribirAlumnoActionPerformed
-        String legajo = jTFLegajo.getText().trim();
-        String apellido = jTFApellido.getText().trim();
-        String nombre = jTFAnioMateria1.getText().trim();
-
-        int legajoInt = Integer.valueOf(legajo);
-        Alumno alumno = new Alumno(legajoInt, apellido, nombre);
-        alumnos.add(alumno);
-
-        System.out.println("alumno agregado");
+        JOptionPane.showMessageDialog(this, "¡Alumno inscripto!");
     }//GEN-LAST:event_jButtonInscribirAlumnoActionPerformed
 
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
@@ -578,7 +569,11 @@ public class JFrame extends javax.swing.JFrame {
 
         Materia materia = new Materia(codigoMateriaInt, nombreMateria, anioMateriaInt);
         materias.add(materia);
-        System.out.println("materia agregado");
+        JOptionPane.showMessageDialog(this, "Materia agregada");
+        jTFCodigoMateria.setText("");
+        jTFNombreMateria.setText("");
+        jTFAnioMateria.setText("");
+
         actualizarMaterias();
     }//GEN-LAST:event_jButtonGuardarMateriaActionPerformed
 
@@ -604,16 +599,24 @@ public class JFrame extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -627,8 +630,8 @@ public class JFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane escritorio;
+    private javax.swing.JButton jBGuardarAlumno;
     private javax.swing.JButton jButtonGuardarMateria;
-    private javax.swing.JButton jButtonGuardarMateria1;
     private javax.swing.JButton jButtonInscribirAlumno;
     private javax.swing.JButton jButtonSalir;
     private javax.swing.JButton jButtonSalir1;
@@ -658,10 +661,10 @@ public class JFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField jTFAnioMateria;
-    private javax.swing.JTextField jTFAnioMateria1;
     private javax.swing.JTextField jTFApellido;
     private javax.swing.JTextField jTFCodigoMateria;
     private javax.swing.JTextField jTFLegajo;
+    private javax.swing.JTextField jTFNombre;
     private javax.swing.JTextField jTFNombreMateria;
     private javax.swing.JMenuItem mi_agregarAlumno;
     private javax.swing.JMenuItem mi_agregarMateria;
@@ -669,27 +672,23 @@ public class JFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void actualizarMaterias() {
-        
-            jComboBox1.removeAllItems();
-            int contador = 0;
 
-            for (Materia materia : materias) {
+        jComboBox1.removeAllItems();
+        int contador = 0;
 
-                    jComboBox1.addItem(materia.getNombre());
-
-                contador++;
-            }
+        for (Materia materia : materias) {
+            jComboBox1.addItem(materia.getNombre());
+            contador++;
+        }
     }
+
     private void actualizarAlumnos() {
-        
-            jComboBox2.removeAllItems();
-            int contador = 0;
+        jComboBox2.removeAllItems();
+        int contador = 0;
 
-            for (Alumno alumno : alumnos) {
-
-                    jComboBox2.addItem(alumno.getNombre());
-
-                contador++;
-            }
+        for (Alumno alumno : alumnos) {
+            jComboBox2.addItem(alumno.getNombre());
+            contador++;
+        }
     }
 }
