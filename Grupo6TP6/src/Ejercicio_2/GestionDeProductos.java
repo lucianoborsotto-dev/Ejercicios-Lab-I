@@ -7,11 +7,14 @@ package Ejercicio_2;
 
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author me50r
- */
 public class GestionDeProductos extends javax.swing.JInternalFrame {
+        int codigoV;
+        String descripcionV;
+        double precioV;
+        Rubro categoriaV;
+        int stockV;
+        boolean cargandoDatos;
+    
     // Crea el modelo por default
     private DefaultTableModel modelo = new DefaultTableModel(){
         //Sobreescribir metodo de la clase para hacer que las celdas no sean editabes
@@ -26,7 +29,7 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
     public GestionDeProductos() {
         initComponents();
         cargarCategorias();
-        agregarCabecera();
+        agregarCabecera();    
     }
 
     /**
@@ -60,6 +63,7 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
         JB_actualizar = new javax.swing.JButton();
         JB_eliminar = new javax.swing.JButton();
         JB_buscar = new javax.swing.JButton();
+        JB_limpiar = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -86,6 +90,11 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        JT_tablita.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JT_tablitaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(JT_tablita);
 
         JP_contenedor.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -100,13 +109,41 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
 
         JL_stock.setText("Stock");
 
+        JTF_codigo.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                JTF_codigoCaretUpdate(evt);
+            }
+        });
+
+        JTF_descripcion.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                JTF_descripcionCaretUpdate(evt);
+            }
+        });
         JTF_descripcion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JTF_descripcionActionPerformed(evt);
             }
         });
 
+        JTF_precio.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                JTF_precioCaretUpdate(evt);
+            }
+        });
+
+        JCB_rubro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JCB_rubroActionPerformed(evt);
+            }
+        });
+
         JS_stock.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        JS_stock.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                JS_stockStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout JP_contenedorLayout = new javax.swing.GroupLayout(JP_contenedor);
         JP_contenedor.setLayout(JP_contenedorLayout);
@@ -136,7 +173,7 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
                             .addGroup(JP_contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(JP_contenedorLayout.createSequentialGroup()
                                     .addGap(6, 6, 6)
-                                    .addComponent(JS_stock, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(JS_stock, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(JCB_rubro, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(213, Short.MAX_VALUE))
         );
@@ -173,13 +210,20 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
             }
         });
 
+        JB_nuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-producto-usado-50.png"))); // NOI18N
         JB_nuevo.setText("Nuevo");
+        JB_nuevo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JB_nuevoMouseClicked(evt);
+            }
+        });
         JB_nuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JB_nuevoActionPerformed(evt);
             }
         });
 
+        JB_guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-caja-de-producto-de-pelo-corto-50.png"))); // NOI18N
         JB_guardar.setText("Guardar");
         JB_guardar.setEnabled(false);
         JB_guardar.addActionListener(new java.awt.event.ActionListener() {
@@ -188,15 +232,24 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
             }
         });
 
+        JB_actualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-marca-doble-30.png"))); // NOI18N
         JB_actualizar.setText("Actualizar");
 
         JB_eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/eliminar.png"))); // NOI18N
         JB_eliminar.setText("Eliminar");
 
+        JB_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-magnifying-glass-tilted-right-48.png"))); // NOI18N
         JB_buscar.setText("Buscar");
         JB_buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JB_buscarActionPerformed(evt);
+            }
+        });
+
+        JB_limpiar.setText("Limpiar");
+        JB_limpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JB_limpiarActionPerformed(evt);
             }
         });
 
@@ -210,7 +263,7 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(JB_nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(5, 5, 5)
-                        .addComponent(JB_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(JB_guardar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(JB_actualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -218,20 +271,21 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 590, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(JP_contenedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(JB_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(35, 35, 35)
-                                .addComponent(JB_cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(JB_buscar)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(JB_cerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(JB_limpiar, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE))
+                                .addGap(14, 14, 14))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(JL_filtrar, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(JL_gestion, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(JCB_categoria, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -246,9 +300,11 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
                         .addComponent(JB_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(54, 54, 54)
+                        .addGap(18, 18, 18)
+                        .addComponent(JB_limpiar)
+                        .addGap(18, 18, 18)
                         .addComponent(JB_cerrar)
-                        .addGap(94, 94, 94))
+                        .addGap(80, 80, 80))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -274,7 +330,7 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_JTF_descripcionActionPerformed
 
     private void JB_cerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_cerrarActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_JB_cerrarActionPerformed
 
     private void JB_nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_nuevoActionPerformed
@@ -296,6 +352,73 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_JB_buscarActionPerformed
 
+    private void JB_limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_limpiarActionPerformed
+        limpiar();
+        JB_guardar.setEnabled(false);
+        cargandoDatos = true;
+    }//GEN-LAST:event_JB_limpiarActionPerformed
+
+    private void JB_nuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JB_nuevoMouseClicked
+        
+    }//GEN-LAST:event_JB_nuevoMouseClicked
+
+    private void JT_tablitaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JT_tablitaMouseClicked
+        int filaSelected = JT_tablita.getSelectedRow();
+        if(filaSelected != -1){
+            int codigo = (Integer) JT_tablita.getValueAt(filaSelected, 0);
+            String descripcion = (String) JT_tablita.getValueAt(filaSelected, 1);
+            double precio = (Double) JT_tablita.getValueAt(filaSelected, 2);
+            Rubro categoria = (Rubro) JT_tablita.getValueAt(filaSelected, 3);
+            int stock = (Integer) JT_tablita.getValueAt(filaSelected, 4);
+            
+            codigoV = codigo;
+            descripcionV = descripcion;
+            precioV = precio;
+            categoriaV = categoria;
+            stockV = stock;
+            
+            cargandoDatos = true;
+            JTF_codigo.setText(codigo + "");
+            JTF_descripcion.setText(descripcion);
+            JTF_precio.setText(precio + "");
+            JCB_rubro.setSelectedItem(categoria);
+            JS_stock.setValue(stock);
+            cargandoDatos = false;
+        }
+    }//GEN-LAST:event_JT_tablitaMouseClicked
+
+    private void JTF_codigoCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_JTF_codigoCaretUpdate
+
+        if(!cargandoDatos && JT_tablita.getSelectedRow() != -1){
+           verificarValores(); 
+        }
+        
+    }//GEN-LAST:event_JTF_codigoCaretUpdate
+
+    private void JTF_descripcionCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_JTF_descripcionCaretUpdate
+        if(!cargandoDatos && JT_tablita.getSelectedRow() != -1){
+           verificarValores(); 
+        }
+    }//GEN-LAST:event_JTF_descripcionCaretUpdate
+
+    private void JTF_precioCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_JTF_precioCaretUpdate
+        if(!cargandoDatos && JT_tablita.getSelectedRow() != -1){
+           verificarValores(); 
+        }
+    }//GEN-LAST:event_JTF_precioCaretUpdate
+
+    private void JS_stockStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_JS_stockStateChanged
+        if(!cargandoDatos && JT_tablita.getSelectedRow() != -1){
+           verificarValores(); 
+        }
+    }//GEN-LAST:event_JS_stockStateChanged
+
+    private void JCB_rubroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JCB_rubroActionPerformed
+        if(!cargandoDatos && JT_tablita.getSelectedRow() != -1){
+           verificarValores(); 
+        }
+    }//GEN-LAST:event_JCB_rubroActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JB_actualizar;
@@ -303,6 +426,7 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
     private javax.swing.JButton JB_cerrar;
     private javax.swing.JButton JB_eliminar;
     private javax.swing.JButton JB_guardar;
+    private javax.swing.JButton JB_limpiar;
     private javax.swing.JButton JB_nuevo;
     private javax.swing.JComboBox<String> JCB_categoria;
     private javax.swing.JComboBox<Rubro> JCB_rubro;
@@ -321,12 +445,13 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel Jl_codigo;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+    
     public void cargarCategorias(){
         JCB_categoria.addItem("Perfumeria");
         JCB_categoria.addItem("Comestible");
         JCB_categoria.addItem("Limpieza");
-        JCB_rubro.addItem(Rubro.COMESTIBLE);
         JCB_rubro.addItem(Rubro.PERFUMERIA);
+        JCB_rubro.addItem(Rubro.COMESTIBLE);
         JCB_rubro.addItem(Rubro.LIMPIEZA);
     }
     
@@ -341,9 +466,34 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
         // Seteamos el modelo
         JT_tablita.setModel(modelo);
     }
-    
+        // Permite cargar los datos del producto a la tabla
     private void cargarDatos(Producto p) {
         modelo.addRow(new Object[]{p.getCodigo(), p.getDescripcion(), p.getPrecio(), p.getRubro(), p.getStock()});
-        DeTodo_SA.listaDeProductos.add(p);
+        DeTodo_SA.listaDeProductos.add(p);  //Guarda los productos en un TreeSet
+    }
+    
+        // Permite limpiar los campos con el boton "limpiar"
+    private void limpiar(){
+        JTF_codigo.setText("");
+        JTF_descripcion.setText("");
+        JTF_precio.setText("");
+        JCB_rubro.setSelectedIndex(0);
+        JS_stock.setValue(0);
+    }
+    
+    private void verificarValores(){
+        if(!JTF_codigo.getText().equals(codigoV)){
+            JB_guardar.setEnabled(true);
+        }else if(!JTF_descripcion.getText().equals(descripcionV)){
+            JB_guardar.setEnabled(true);
+        }else if(!JTF_precio.getText().equals(precioV)){
+            JB_guardar.setEnabled(true);
+        }else if(!JCB_rubro.getSelectedItem().equals(categoriaV)){
+            JB_guardar.setEnabled(true);
+        }else if(!JS_stock.getValue().equals(stockV)){
+            JB_guardar.setEnabled(true);
+        }else{
+            JB_guardar.setEnabled(false);
+        }
     }
 }

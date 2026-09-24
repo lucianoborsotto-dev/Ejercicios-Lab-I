@@ -28,7 +28,7 @@
                   <Group type="102" attributes="0">
                       <Component id="JB_nuevo" min="-2" pref="129" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                      <Component id="JB_guardar" min="-2" pref="118" max="-2" attributes="0"/>
+                      <Component id="JB_guardar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="JB_actualizar" min="-2" pref="125" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -37,14 +37,15 @@
                   <Component id="jScrollPane1" alignment="0" min="-2" pref="590" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="JP_contenedor" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="JB_buscar" min="-2" pref="116" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                              <Component id="JB_cerrar" min="-2" pref="84" max="-2" attributes="0"/>
+                          <Component id="JB_buscar" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="JB_cerrar" max="32767" attributes="0"/>
+                                  <Component id="JB_limpiar" pref="97" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -57,7 +58,7 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="20" max="32767" attributes="0"/>
+              <EmptySpace pref="13" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -75,9 +76,11 @@
                   <Group type="102" attributes="0">
                       <EmptySpace pref="164" max="32767" attributes="0"/>
                       <Component id="JB_buscar" min="-2" pref="108" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <Component id="JB_limpiar" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="JB_cerrar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -172,6 +175,9 @@
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="JT_tablitaMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -215,7 +221,7 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
                                       <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                                      <Component id="JS_stock" min="-2" pref="47" max="-2" attributes="0"/>
+                                      <Component id="JS_stock" min="-2" pref="72" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="JCB_rubro" min="-2" pref="161" max="-2" attributes="0"/>
                               </Group>
@@ -286,13 +292,20 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="JTF_codigo">
+          <Events>
+            <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="JTF_codigoCaretUpdate"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="JTF_descripcion">
           <Events>
+            <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="JTF_descripcionCaretUpdate"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JTF_descripcionActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="JTF_precio">
+          <Events>
+            <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="JTF_precioCaretUpdate"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="JCB_rubro">
           <Properties>
@@ -300,6 +313,9 @@
               <StringArray count="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JCB_rubroActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Rubro&gt;"/>
           </AuxValues>
@@ -310,6 +326,9 @@
               <SpinnerModel initial="0" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="JS_stockStateChanged"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -323,14 +342,21 @@
     </Component>
     <Component class="javax.swing.JButton" name="JB_nuevo">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/icons8-producto-usado-50.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Nuevo"/>
       </Properties>
       <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="JB_nuevoMouseClicked"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JB_nuevoActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="JB_guardar">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/icons8-caja-de-producto-de-pelo-corto-50.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Guardar"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
@@ -340,6 +366,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="JB_actualizar">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/icons8-marca-doble-30.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Actualizar"/>
       </Properties>
     </Component>
@@ -353,10 +382,21 @@
     </Component>
     <Component class="javax.swing.JButton" name="JB_buscar">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/icons8-magnifying-glass-tilted-right-48.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Buscar"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JB_buscarActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="JB_limpiar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Limpiar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JB_limpiarActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
