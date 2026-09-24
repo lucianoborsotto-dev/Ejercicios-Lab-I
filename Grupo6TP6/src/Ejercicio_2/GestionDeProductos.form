@@ -371,6 +371,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Actualizar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JB_actualizarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="JB_eliminar">
       <Properties>
@@ -379,6 +382,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Eliminar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JB_eliminarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="JB_buscar">
       <Properties>

@@ -67,7 +67,4 @@ public class Producto implements Comparable<Producto>{
     public String toString() {
         return "Producto{" + "codigo=" + codigo + ", descripcion=" + descripcion + '}';
     }
-    
-    
-    
 }

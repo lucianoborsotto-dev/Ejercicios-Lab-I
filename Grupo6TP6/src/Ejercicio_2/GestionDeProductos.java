@@ -5,15 +5,24 @@
  */
 package Ejercicio_2;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class GestionDeProductos extends javax.swing.JInternalFrame {
-        int codigoV;
-        String descripcionV;
-        double precioV;
-        Rubro categoriaV;
-        int stockV;
-        boolean cargandoDatos;
+    //Guardan valores para que funcione la habilitacion del boton "guardar" cuando se quiere modificar un campo
+    int codigoV;
+    String descripcionV;
+    double precioV;
+    Rubro categoriaV;
+    int stockV;
+    boolean cargandoDatos;
+        
+    //Permite guardar los cambios al presionar el boton guardar
+    int codigoModificado;
+    String descripcionModificada;
+    double precioModificado;
+    Rubro categoriaModificada;
+    int stockModificado;
     
     // Crea el modelo por default
     private DefaultTableModel modelo = new DefaultTableModel(){
@@ -234,9 +243,19 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
 
         JB_actualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-marca-doble-30.png"))); // NOI18N
         JB_actualizar.setText("Actualizar");
+        JB_actualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JB_actualizarActionPerformed(evt);
+            }
+        });
 
         JB_eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/eliminar.png"))); // NOI18N
         JB_eliminar.setText("Eliminar");
+        JB_eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JB_eliminarActionPerformed(evt);
+            }
+        });
 
         JB_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-magnifying-glass-tilted-right-48.png"))); // NOI18N
         JB_buscar.setText("Buscar");
@@ -345,7 +364,13 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_JB_nuevoActionPerformed
 
     private void JB_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_guardarActionPerformed
-        
+        codigoModificado = Integer.parseInt(JTF_codigo.getText());
+        descripcionModificada = JTF_descripcion.getText();
+        precioModificado = Double.parseDouble(JTF_precio.getText());
+        categoriaModificada = (Rubro) JCB_rubro.getSelectedItem();
+        stockModificado = (Integer) JS_stock.getValue();
+
+        System.out.println("Cambios guardados");
     }//GEN-LAST:event_JB_guardarActionPerformed
 
     private void JB_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_buscarActionPerformed
@@ -419,6 +444,30 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_JCB_rubroActionPerformed
 
+    private void JB_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_eliminarActionPerformed
+        int filaS = JT_tablita.getSelectedRow();
+        if(filaS != -1){
+            modelo.removeRow(filaS);
+        }else{
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una fila");
+        }
+    }//GEN-LAST:event_JB_eliminarActionPerformed
+
+    private void JB_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_actualizarActionPerformed
+        int filaSelected = JT_tablita.getSelectedRow();
+
+        if (filaSelected != -1) {
+            modelo.setValueAt(codigoModificado, filaSelected, 0);
+            modelo.setValueAt(descripcionModificada, filaSelected, 1);
+            modelo.setValueAt(precioModificado, filaSelected, 2);
+            modelo.setValueAt(categoriaModificada, filaSelected, 3);
+            modelo.setValueAt(stockModificado, filaSelected, 4);
+        }
+        for (Producto muestra : DeTodo_SA.listaDeProductos) {
+            System.out.println(muestra);
+        }
+    }//GEN-LAST:event_JB_actualizarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JB_actualizar;
@@ -481,6 +530,7 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
         JS_stock.setValue(0);
     }
     
+    //Permite saber si algunos de los campos se modifica para habilitar el boton de "guardar"
     private void verificarValores(){
         if(!JTF_codigo.getText().equals(codigoV)){
             JB_guardar.setEnabled(true);
