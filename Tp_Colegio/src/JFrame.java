@@ -347,6 +347,12 @@ public class JFrame extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Formulario de Inscripcion");
 
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -589,6 +595,10 @@ public class JFrame extends javax.swing.JFrame {
     private void mi_registrarAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_registrarAlumnoActionPerformed
         jInternalFrame1.setVisible(true);
     }//GEN-LAST:event_mi_registrarAlumnoActionPerformed
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox2ActionPerformed
 
     /**
      * @param args the command line arguments
