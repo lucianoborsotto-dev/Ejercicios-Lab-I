@@ -97,6 +97,7 @@ public class DeTodo_SA extends javax.swing.JFrame {
         ventana.setVisible(true);
         escritorio.add(ventana);
         escritorio.moveToFront(ventana);
+        
     }//GEN-LAST:event_JMI_gestionActionPerformed
 
     /**
