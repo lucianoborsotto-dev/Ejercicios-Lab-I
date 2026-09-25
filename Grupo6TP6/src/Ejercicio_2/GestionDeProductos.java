@@ -9,6 +9,10 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class GestionDeProductos extends javax.swing.JInternalFrame {
+
+    // Para la funcionalidad de actualizar
+    int codigoBuscado;
+
     //Guardan valores para que funcione la habilitacion del boton "guardar" cuando se quiere modificar un campo
     int codigoV;
     String descripcionV;
@@ -16,29 +20,30 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
     Rubro categoriaV;
     int stockV;
     boolean cargandoDatos;
-        
+
     //Permite guardar los cambios al presionar el boton guardar
     int codigoModificado;
     String descripcionModificada;
     double precioModificado;
     Rubro categoriaModificada;
     int stockModificado;
-    
+
     // Crea el modelo por default
-    private DefaultTableModel modelo = new DefaultTableModel(){
+    private DefaultTableModel modelo = new DefaultTableModel() {
         //Sobreescribir metodo de la clase para hacer que las celdas no sean editabes
         @Override
-        public boolean isCellEditable(int f, int c){
+        public boolean isCellEditable(int f, int c) {
             return false;
         }
     };
+
     /**
      * Creates new form GestionDeProductos
      */
     public GestionDeProductos() {
         initComponents();
         cargarCategorias();
-        agregarCabecera();    
+        agregarCabecera();
     }
 
     /**
@@ -341,7 +346,11 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void JCB_categoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JCB_categoriaActionPerformed
-        
+        String seleccion = JCB_categoria.getSelectedItem().toString();
+        if (seleccion.equalsIgnoreCase("PERFUMERÍA")) {
+
+        }
+
     }//GEN-LAST:event_JCB_categoriaActionPerformed
 
     private void JTF_descripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTF_descripcionActionPerformed
@@ -358,7 +367,7 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
         double precio = Double.parseDouble(JTF_precio.getText());
         Rubro categoria = (Rubro) JCB_rubro.getSelectedItem();
         int stock = (Integer) JS_stock.getValue();
-        
+
         Producto producto = new Producto(codigo, descripcion, precio, stock, categoria);
         cargarDatos(producto);
     }//GEN-LAST:event_JB_nuevoActionPerformed
@@ -384,24 +393,25 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_JB_limpiarActionPerformed
 
     private void JB_nuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JB_nuevoMouseClicked
-        
+
     }//GEN-LAST:event_JB_nuevoMouseClicked
 
     private void JT_tablitaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JT_tablitaMouseClicked
         int filaSelected = JT_tablita.getSelectedRow();
-        if(filaSelected != -1){
+        if (filaSelected != -1) {
             int codigo = (Integer) JT_tablita.getValueAt(filaSelected, 0);
             String descripcion = (String) JT_tablita.getValueAt(filaSelected, 1);
             double precio = (Double) JT_tablita.getValueAt(filaSelected, 2);
             Rubro categoria = (Rubro) JT_tablita.getValueAt(filaSelected, 3);
             int stock = (Integer) JT_tablita.getValueAt(filaSelected, 4);
-            
+            codigoBuscado = codigo;
+
             codigoV = codigo;
             descripcionV = descripcion;
             precioV = precio;
             categoriaV = categoria;
             stockV = stock;
-            
+
             cargandoDatos = true;
             JTF_codigo.setText(codigo + "");
             JTF_descripcion.setText(descripcion);
@@ -414,41 +424,41 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
 
     private void JTF_codigoCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_JTF_codigoCaretUpdate
 
-        if(!cargandoDatos && JT_tablita.getSelectedRow() != -1){
-           verificarValores(); 
+        if (!cargandoDatos && JT_tablita.getSelectedRow() != -1) {
+            verificarValores();
         }
-        
+
     }//GEN-LAST:event_JTF_codigoCaretUpdate
 
     private void JTF_descripcionCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_JTF_descripcionCaretUpdate
-        if(!cargandoDatos && JT_tablita.getSelectedRow() != -1){
-           verificarValores(); 
+        if (!cargandoDatos && JT_tablita.getSelectedRow() != -1) {
+            verificarValores();
         }
     }//GEN-LAST:event_JTF_descripcionCaretUpdate
 
     private void JTF_precioCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_JTF_precioCaretUpdate
-        if(!cargandoDatos && JT_tablita.getSelectedRow() != -1){
-           verificarValores(); 
+        if (!cargandoDatos && JT_tablita.getSelectedRow() != -1) {
+            verificarValores();
         }
     }//GEN-LAST:event_JTF_precioCaretUpdate
 
     private void JS_stockStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_JS_stockStateChanged
-        if(!cargandoDatos && JT_tablita.getSelectedRow() != -1){
-           verificarValores(); 
+        if (!cargandoDatos && JT_tablita.getSelectedRow() != -1) {
+            verificarValores();
         }
     }//GEN-LAST:event_JS_stockStateChanged
 
     private void JCB_rubroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JCB_rubroActionPerformed
-        if(!cargandoDatos && JT_tablita.getSelectedRow() != -1){
-           verificarValores(); 
+        if (!cargandoDatos && JT_tablita.getSelectedRow() != -1) {
+            verificarValores();
         }
     }//GEN-LAST:event_JCB_rubroActionPerformed
 
     private void JB_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_eliminarActionPerformed
         int filaS = JT_tablita.getSelectedRow();
-        if(filaS != -1){
+        if (filaS != -1) {
             modelo.removeRow(filaS);
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Debe seleccionar una fila");
         }
     }//GEN-LAST:event_JB_eliminarActionPerformed
@@ -463,6 +473,10 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
             modelo.setValueAt(categoriaModificada, filaSelected, 3);
             modelo.setValueAt(stockModificado, filaSelected, 4);
         }
+
+        DeTodo_SA.listaDeProductos.removeIf(prod -> prod.getCodigo() == codigoBuscado);
+        Producto producto = new Producto(codigoModificado, descripcionModificada, precioModificado, stockModificado, categoriaModificada);
+        DeTodo_SA.listaDeProductos.add(producto);
         for (Producto muestra : DeTodo_SA.listaDeProductos) {
             System.out.println(muestra);
         }
@@ -477,7 +491,7 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
     private javax.swing.JButton JB_guardar;
     private javax.swing.JButton JB_limpiar;
     private javax.swing.JButton JB_nuevo;
-    private javax.swing.JComboBox<String> JCB_categoria;
+    private javax.swing.JComboBox<Rubro> JCB_categoria;
     private javax.swing.JComboBox<Rubro> JCB_rubro;
     private javax.swing.JLabel JL_descripcion;
     private javax.swing.JLabel JL_filtrar;
@@ -494,17 +508,17 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel Jl_codigo;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
-    
-    public void cargarCategorias(){
-        JCB_categoria.addItem("Perfumeria");
-        JCB_categoria.addItem("Comestible");
-        JCB_categoria.addItem("Limpieza");
+
+    public void cargarCategorias() {
+        JCB_categoria.addItem(Rubro.PERFUMERIA);
+        JCB_categoria.addItem(Rubro.COMESTIBLE);
+        JCB_categoria.addItem(Rubro.LIMPIEZA);
         JCB_rubro.addItem(Rubro.PERFUMERIA);
         JCB_rubro.addItem(Rubro.COMESTIBLE);
         JCB_rubro.addItem(Rubro.LIMPIEZA);
     }
-    
-        // Método para agregar cabeceras
+
+    // Método para agregar cabeceras
     private void agregarCabecera() {
         modelo.addColumn("Codigo");
         modelo.addColumn("Descripcion");
@@ -515,34 +529,35 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
         // Seteamos el modelo
         JT_tablita.setModel(modelo);
     }
-        // Permite cargar los datos del producto a la tabla
+    // Permite cargar los datos del producto a la tabla
+
     private void cargarDatos(Producto p) {
         modelo.addRow(new Object[]{p.getCodigo(), p.getDescripcion(), p.getPrecio(), p.getRubro(), p.getStock()});
         DeTodo_SA.listaDeProductos.add(p);  //Guarda los productos en un TreeSet
     }
-    
-        // Permite limpiar los campos con el boton "limpiar"
-    private void limpiar(){
+
+    // Permite limpiar los campos con el boton "limpiar"
+    private void limpiar() {
         JTF_codigo.setText("");
         JTF_descripcion.setText("");
         JTF_precio.setText("");
         JCB_rubro.setSelectedIndex(0);
         JS_stock.setValue(0);
     }
-    
+
     //Permite saber si algunos de los campos se modifica para habilitar el boton de "guardar"
-    private void verificarValores(){
-        if(!JTF_codigo.getText().equals(codigoV)){
+    private void verificarValores() {
+        if (!JTF_codigo.getText().equals(codigoV)) {
             JB_guardar.setEnabled(true);
-        }else if(!JTF_descripcion.getText().equals(descripcionV)){
+        } else if (!JTF_descripcion.getText().equals(descripcionV)) {
             JB_guardar.setEnabled(true);
-        }else if(!JTF_precio.getText().equals(precioV)){
+        } else if (!JTF_precio.getText().equals(precioV)) {
             JB_guardar.setEnabled(true);
-        }else if(!JCB_rubro.getSelectedItem().equals(categoriaV)){
+        } else if (!JCB_rubro.getSelectedItem().equals(categoriaV)) {
             JB_guardar.setEnabled(true);
-        }else if(!JS_stock.getValue().equals(stockV)){
+        } else if (!JS_stock.getValue().equals(stockV)) {
             JB_guardar.setEnabled(true);
-        }else{
+        } else {
             JB_guardar.setEnabled(false);
         }
     }
