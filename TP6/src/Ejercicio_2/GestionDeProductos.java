@@ -8,7 +8,10 @@ package Ejercicio_2;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class GestionDeProductos extends javax.swing.JInternalFrame {
+public class GestionDeProductos extends javax.swing.JInternalFrame {  
+    //Codigo usado para eliminar el producto viejo
+    int codigoBuscado;
+    
     //Guardan valores para que funcione la habilitacion del boton "guardar" cuando se quiere modificar un campo
     int codigoV;
     String descripcionV;
@@ -38,7 +41,8 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
     public GestionDeProductos() {
         initComponents();
         cargarCategorias();
-        agregarCabecera();    
+        agregarCabecera();
+        cargarProductos();
     }
 
     /**
@@ -82,6 +86,11 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
         JL_filtrar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         JL_filtrar.setText("Filtrar por categoria: ");
 
+        JCB_categoria.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JCB_categoriaMouseClicked(evt);
+            }
+        });
         JCB_categoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JCB_categoriaActionPerformed(evt);
@@ -341,7 +350,31 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void JCB_categoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JCB_categoriaActionPerformed
-        
+
+//        for (Producto lista : DeTodo_SA.listaDeProductos) {
+//            if(lista.getRubro().equals((Rubro)JCB_categoria.getSelectedItem())){
+//                modelo.addRow(new Object[]{lista.getCodigo(), lista.getDescripcion(), lista.getPrecio(), lista.getRubro(), lista.getStock()});   
+//            }
+//        }
+        Rubro rubroSeleccionado = (Rubro) JCB_categoria.getSelectedItem();
+
+        DefaultTableModel modelo = (DefaultTableModel) JT_tablita.getModel();
+
+        modelo.setRowCount(0);
+
+        for (Producto producto : DeTodo_SA.listaDeProductos) {
+
+            if (producto.getRubro() == rubroSeleccionado) {
+                modelo.addRow(new Object[]{
+                    producto.getCodigo(),
+                    producto.getDescripcion(),
+                    producto.getPrecio(),
+                    producto.getRubro(),
+                    producto.getStock()
+                });
+            }
+        }
+
     }//GEN-LAST:event_JCB_categoriaActionPerformed
 
     private void JTF_descripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTF_descripcionActionPerformed
@@ -395,6 +428,7 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
             double precio = (Double) JT_tablita.getValueAt(filaSelected, 2);
             Rubro categoria = (Rubro) JT_tablita.getValueAt(filaSelected, 3);
             int stock = (Integer) JT_tablita.getValueAt(filaSelected, 4);
+            codigoBuscado = codigo;
             
             codigoV = codigo;
             descripcionV = descripcion;
@@ -462,11 +496,19 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
             modelo.setValueAt(precioModificado, filaSelected, 2);
             modelo.setValueAt(categoriaModificada, filaSelected, 3);
             modelo.setValueAt(stockModificado, filaSelected, 4);
+            
+            DeTodo_SA.listaDeProductos.removeIf(prod-> prod.getCodigo() == codigoBuscado);
+            Producto product = new Producto(codigoModificado, descripcionModificada, precioModificado, stockModificado, categoriaModificada);
+            DeTodo_SA.listaDeProductos.add(product);
         }
         for (Producto muestra : DeTodo_SA.listaDeProductos) {
             System.out.println(muestra);
         }
     }//GEN-LAST:event_JB_actualizarActionPerformed
+
+    private void JCB_categoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JCB_categoriaMouseClicked
+        
+    }//GEN-LAST:event_JCB_categoriaMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -477,7 +519,7 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
     private javax.swing.JButton JB_guardar;
     private javax.swing.JButton JB_limpiar;
     private javax.swing.JButton JB_nuevo;
-    private javax.swing.JComboBox<String> JCB_categoria;
+    private javax.swing.JComboBox<Rubro> JCB_categoria;
     private javax.swing.JComboBox<Rubro> JCB_rubro;
     private javax.swing.JLabel JL_descripcion;
     private javax.swing.JLabel JL_filtrar;
@@ -496,9 +538,9 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
     
     public void cargarCategorias(){
-        JCB_categoria.addItem("Perfumeria");
-        JCB_categoria.addItem("Comestible");
-        JCB_categoria.addItem("Limpieza");
+        JCB_categoria.addItem(Rubro.PERFUMERIA);
+        JCB_categoria.addItem(Rubro.COMESTIBLE);
+        JCB_categoria.addItem(Rubro.LIMPIEZA);
         JCB_rubro.addItem(Rubro.PERFUMERIA);
         JCB_rubro.addItem(Rubro.COMESTIBLE);
         JCB_rubro.addItem(Rubro.LIMPIEZA);
@@ -530,7 +572,7 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
         JS_stock.setValue(0);
     }
     
-    //Permite saber si algunos de los campos se modifica para habilitar el boton de "guardar"
+        //Permite saber si algunos de los campos se modifica para habilitar el boton de "guardar"
     private void verificarValores(){
         if(!JTF_codigo.getText().equals(codigoV)){
             JB_guardar.setEnabled(true);
@@ -544,6 +586,19 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
             JB_guardar.setEnabled(true);
         }else{
             JB_guardar.setEnabled(false);
+        }
+    }
+    
+    private void cargarProductos(){
+        for (Producto produ : DeTodo_SA.listaDeProductos) {
+            modelo.addRow(new Object[]{produ.getCodigo(), produ.getDescripcion(), produ.getPrecio(), produ.getRubro(), produ.getStock()});
+        }
+    }
+    
+    private void borrarFilas(){
+        int filas = JT_tablita.getRowCount() -1;
+        for (int f = filas; f >= 0; f--) {
+            modelo.removeRow(f);
         }
     }
 }
